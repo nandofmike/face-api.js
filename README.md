@@ -495,7 +495,7 @@ Você também pode desenhar retângulos com textos personalizados ([DrawBox](htt
 const box = { x: 50, y: 50, width: 100, height: 100 }
 // veja as opções de DrawBox abaixo
 const drawOptions = {
-  label: 'Hello I am a box!',
+  label: 'Olá, sou um retângulo!',
   lineWidth: 2
 }
 const drawBox = new faceapi.draw.DrawBox(box, drawOptions)
@@ -517,8 +517,8 @@ Por fim, você pode desenhar campos de texto personalizados ([DrawTextField](htt
 
 ``` javascript
 const text = [
-  'This is a textline!',
-  'This is another textline!'
+  'Esta é uma linha de texto!',
+  'Esta é outra linha de texto!'
 ]
 const anchor = { x: 200, y: 200 }
 // veja as opções de DrawTextField abaixo
@@ -784,74 +784,74 @@ const canvas2 = faceapi.createCanvasFromMedia(document.getElementById('myVideo')
 
 <a name="models"></a>
 
-# Available Models
+# Modelos disponíveis
 
 <a name="models-face-detection"></a>
 
-## Face Detection Models
+## Modelos de detecção facial
 
 ### SSD Mobilenet V1
 
-For face detection, this project implements a SSD (Single Shot Multibox Detector) based on MobileNetV1. The neural net will compute the locations of each face in an image and will return the bounding boxes together with it's probability for each face. This face detector is aiming towards obtaining high accuracy in detecting face bounding boxes instead of low inference time. The size of the quantized model is about 5.4 MB (**ssd_mobilenetv1_model**).
+Para detectar rostos, este projeto utiliza um SSD (*Single Shot Multibox Detector*) baseado na MobileNetV1. A rede neural identifica a posição de cada rosto na imagem e retorna os retângulos delimitadores com a probabilidade associada a cada detecção. Esse detector prioriza a precisão na localização dos rostos, em vez da velocidade de processamento (tempo de inferência). O modelo quantizado ocupa cerca de 5,4 MB (**ssd_mobilenetv1_model**).
 
-The face detection model has been trained on the [WIDERFACE dataset](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/) and the weights are provided by [yeephycho](https://github.com/yeephycho) in [this](https://github.com/yeephycho/tensorflow-face-detection) repo.
+O modelo de detecção facial foi treinado com o [conjunto de dados WIDER FACE](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/). Os pesos foram disponibilizados por [yeephycho](https://github.com/yeephycho) [neste repositório](https://github.com/yeephycho/tensorflow-face-detection).
 
-### Tiny Face Detector
+### Tiny Face Detector (detector facial leve)
 
-The Tiny Face Detector is a very performant, realtime face detector, which is much faster, smaller and less resource consuming compared to the SSD Mobilenet V1 face detector, in return it performs slightly less well on detecting small faces. This model is extremely mobile and web friendly, thus it should be your GO-TO face detector on mobile devices and resource limited clients. The size of the quantized model is only 190 KB (**tiny_face_detector_model**).
+O Tiny Face Detector é um detector facial eficiente e capaz de funcionar em tempo real. Ele é muito mais rápido, menor e consome menos recursos do que o SSD MobileNet V1, embora tenha desempenho um pouco inferior na detecção de rostos pequenos. Por isso, é uma ótima escolha para dispositivos móveis e navegadores em equipamentos com recursos limitados. O modelo quantizado ocupa apenas 190 KB (**tiny_face_detector_model**).
 
-The face detector has been trained on a custom dataset of ~14K images labeled with bounding boxes. Furthermore the model has been trained to predict bounding boxes, which entirely cover facial feature points, thus it in general produces better results in combination with subsequent face landmark detection than SSD Mobilenet V1.
+Esse detector foi treinado com um conjunto personalizado de aproximadamente 14 mil imagens, identificadas com retângulos delimitadores. O treinamento também buscou prever retângulos que incluam todos os pontos característicos do rosto. Em geral, isso favorece sua combinação com a etapa posterior de detecção de pontos de referência faciais, em comparação com o SSD MobileNet V1.
 
-This model is basically an even tinier version of Tiny Yolo V2, replacing the regular convolutions of Yolo with depthwise separable convolutions. Yolo is fully convolutional, thus can easily adapt to different input image sizes to trade off accuracy for performance (inference time).
+Esse modelo é, basicamente, uma versão ainda menor do Tiny YOLO V2. Ele substitui as convoluções tradicionais do YOLO por convoluções separáveis em profundidade, que exigem menos processamento. Como o YOLO é totalmente convolucional, pode trabalhar com diferentes tamanhos de imagem, permitindo equilibrar precisão e velocidade (tempo de inferência).
 
 <a name="models-face-landmark-detection"></a>
 
-## 68 Point Face Landmark Detection Models
+## Modelos de detecção de 68 pontos de referência faciais
 
-This package implements a very lightweight and fast, yet accurate 68 point face landmark detector. The default model has a size of only 350kb (**face_landmark_68_model**) and the tiny model is only 80kb (**face_landmark_68_tiny_model**). Both models employ the ideas of depthwise separable convolutions as well as densely connected blocks. The models have been trained on a dataset of ~35k face images labeled with 68 face landmark points.
+Este pacote implementa um detector de 68 pontos de referência faciais que é leve, rápido e preciso. O modelo padrão ocupa apenas 350 KB (**face_landmark_68_model**), enquanto o modelo reduzido ocupa 80 KB (**face_landmark_68_tiny_model**). Ambos usam convoluções separáveis em profundidade e blocos densamente conectados. Foram treinados com aproximadamente 35 mil imagens de rostos, cada uma identificada com 68 pontos de referência.
 
 <a name="models-face-recognition"></a>
 
-## Face Recognition Model
+## Modelo de reconhecimento facial
 
-For face recognition, a ResNet-34 like architecture is implemented to compute a face descriptor (a feature vector with 128 values) from any given face image, which is used to describe the characteristics of a persons face. The model is **not** limited to the set of faces used for training, meaning you can use it for face recognition of any person, for example yourself. You can determine the similarity of two arbitrary faces by comparing their face descriptors, for example by computing the euclidean distance or using any other classifier of your choice.
+Para o reconhecimento facial, é utilizada uma arquitetura semelhante à ResNet-34, que calcula um descritor facial (um vetor de 128 valores) a partir da imagem de um rosto. Esse vetor representa características do rosto de uma pessoa. O modelo **não** se limita aos rostos usados no treinamento: ele pode reconhecer rostos de outras pessoas, inclusive o seu. Para medir a semelhança entre dois rostos, basta comparar seus descritores, por exemplo, calculando a distância euclidiana ou usando outro classificador de sua escolha.
 
-The neural net is equivalent to the **FaceRecognizerNet** used in [face-recognition.js](https://github.com/justadudewhohacks/face-recognition.js) and the net used in the [dlib](https://github.com/davisking/dlib/blob/master/examples/dnn_face_recognition_ex.cpp) face recognition example. The weights have been trained by [davisking](https://github.com/davisking) and the model achieves a prediction accuracy of 99.38% on the LFW (Labeled Faces in the Wild) benchmark for face recognition.
+A rede neural equivale à **FaceRecognizerNet** usada no [face-recognition.js](https://github.com/justadudewhohacks/face-recognition.js) e à rede do exemplo de reconhecimento facial da [dlib](https://github.com/davisking/dlib/blob/master/examples/dnn_face_recognition_ex.cpp). Os pesos foram treinados por [davisking](https://github.com/davisking). O modelo alcançou 99,38% de precisão no conjunto de avaliação LFW (*Labeled Faces in the Wild*) para reconhecimento facial.
 
-The size of the quantized model is roughly 6.2 MB (**face_recognition_model**).
+O modelo quantizado ocupa aproximadamente 6,2 MB (**face_recognition_model**).
 
 <a name="models-face-expression-recognition"></a>
 
-## Face Expression Recognition Model
+## Modelo de reconhecimento de expressões faciais
 
-The face expression recognition model is lightweight, fast and provides reasonable accuracy. The model has a size of roughly 310kb and it employs depthwise separable convolutions and densely connected blocks. It has been trained on a variety of images from publicly available datasets as well as images scraped from the web. Note, that wearing glasses might decrease the accuracy of the prediction results.
+O modelo de reconhecimento de expressões faciais é leve, rápido e apresenta precisão satisfatória. Ele ocupa aproximadamente 310 KB e utiliza convoluções separáveis em profundidade e blocos densamente conectados. Foi treinado com imagens de conjuntos de dados públicos e outras imagens coletadas na internet. O uso de óculos pode reduzir a precisão dos resultados.
 
 <a name="models-age-and-gender-recognition"></a>
 
-## Age and Gender Recognition Model
+## Modelo de estimativa de idade e classificação de gênero
 
-The age and gender recognition model is a multitask network, which employs a feature extraction layer, an age regression layer and a gender classifier. The model has a size of roughly 420kb and the feature extractor employs a tinier but very similar architecture to Xception.
+O modelo de estimativa de idade e classificação de gênero é uma rede neural multitarefa, com uma camada para extrair características, outra para estimar a idade (regressão) e um classificador de gênero. Ele ocupa aproximadamente 420 KB. O extrator de características utiliza uma arquitetura reduzida, mas muito semelhante à Xception.
 
-This model has been trained and tested on the following databases with an 80/20 train/test split each: UTK, FGNET, Chalearn, Wiki, IMDB*, CACD*, MegaAge, MegaAge-Asian. The `*` indicates, that these databases have been algorithmically cleaned up, since the initial databases are very noisy.
+O modelo foi treinado e testado com as seguintes bases de dados, usando em cada uma 80% das imagens para treinamento e 20% para teste: UTK, FGNET, Chalearn, Wiki, IMDB*, CACD*, MegaAge e MegaAge-Asian. O asterisco (`*`) indica que essas bases passaram por limpeza automática, pois os dados originais apresentavam muitos problemas.
 
-### Total Test Results
+### Resultados gerais dos testes
 
-Total MAE (Mean Age Error): **4.54**
+Erro absoluto médio (MAE) na estimativa de idade: **4,54 anos**
 
-Total Gender Accuracy: **95%**
+Precisão geral da classificação de gênero: **95%**
 
-### Test results for each database
+### Resultados dos testes por base de dados
 
-The `-` indicates, that there are no gender labels available for these databases.
+O símbolo `-` indica que não há rótulos de gênero disponíveis nessas bases de dados.
 
-Database        | UTK    | FGNET | Chalearn | Wiki | IMDB* | CACD* | MegaAge | MegaAge-Asian |
+Base de dados   | UTK    | FGNET | Chalearn | Wiki | IMDB* | CACD* | MegaAge | MegaAge-Asian |
 ----------------|-------:|------:|---------:|-----:|------:|------:|--------:|--------------:|
 MAE             | 5.25   | 4.23  | 6.24     | 6.54 | 3.63  | 3.20  | 6.23    | 4.21          |
-Gender Accuracy | 0.93   | -     | 0.94     | 0.95 | -     | 0.97  | -       | -             |
+Precisão de gênero | 0.93 | -    | 0.94     | 0.95 | -     | 0.97  | -       | -             |
 
-### Test results for different age category groups
+### Resultados dos testes por faixa etária
 
-Age Range       | 0 - 3  | 4 - 8 | 9 - 18 | 19 - 28 | 29 - 40 | 41 - 60 | 60 - 80 | 80+     |
+Faixa etária    | 0 - 3  | 4 - 8 | 9 - 18 | 19 - 28 | 29 - 40 | 41 - 60 | 60 - 80 | 80+     |
 ----------------|-------:|------:|-------:|--------:|--------:|--------:|--------:|--------:|
 MAE             | 1.52   | 3.06  | 4.82   | 4.99    | 5.43    | 4.94    | 6.17    | 9.91    |
-Gender Accuracy | 0.69   | 0.80  | 0.88   | 0.96    | 0.97    | 0.97    | 0.96    | 0.9     |
+Precisão de gênero | 0.69 | 0.80 | 0.88   | 0.96    | 0.97    | 0.97    | 0.96    | 0.9     |
