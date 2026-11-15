@@ -3,71 +3,73 @@
 [![Build Status](https://travis-ci.org/justadudewhohacks/face-api.js.svg?branch=master)](https://travis-ci.org/justadudewhohacks/face-api.js)
 [![Slack](https://slack.bri.im/badge.svg)](https://slack.bri.im)
 
-**JavaScript face recognition API for the browser and nodejs implemented on top of tensorflow.js core ([tensorflow/tfjs-core](https://github.com/tensorflow/tfjs))**
+**API JavaScript para reconhecimento facial no navegador e no Node.js, desenvolvida com base no núcleo do TensorFlow.js ([tensorflow/tfjs-core](https://github.com/tensorflow/tfjs))**
 
 ![faceapi](https://user-images.githubusercontent.com/31125521/57224752-ad3dc080-700a-11e9-85b9-1357b9f9bca4.gif)
 
-## **[Click me for Live Demos!](https://justadudewhohacks.github.io/face-api.js/)**
+## **[Clique aqui para acessar as demonstrações interativas!](https://justadudewhohacks.github.io/face-api.js/)**
 
-## Tutorials
+## Tutoriais
 
-* **[face-api.js — JavaScript API for Face Recognition in the Browser with tensorflow.js](https://itnext.io/face-api-js-javascript-api-for-face-recognition-in-the-browser-with-tensorflow-js-bcc2a6c4cf07)**
-* **[Realtime JavaScript Face Tracking and Face Recognition using face-api.js’ MTCNN Face Detector](https://itnext.io/realtime-javascript-face-tracking-and-face-recognition-using-face-api-js-mtcnn-face-detector-d924dd8b5740)**
-* **[Realtime Webcam Face Detection And Emotion Recognition - Video](https://youtu.be/CVClHLwv-4I)**
-* **[Easy Face Recognition Tutorial With JavaScript - Video](https://youtu.be/AZ4PdALMqx0)**
-* **[Using face-api.js with Vue.js and Electron](https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166)**
-* **[Add Masks to People - Gant Laborde on Learn with Jason](https://www.learnwithjason.dev/fun-with-machine-learning-pt-2)**
+* **[face-api.js — API JavaScript para reconhecimento facial no navegador com TensorFlow.js](https://itnext.io/face-api-js-javascript-api-for-face-recognition-in-the-browser-with-tensorflow-js-bcc2a6c4cf07)**
+* **[Rastreamento e reconhecimento facial em tempo real com JavaScript usando o detector MTCNN do face-api.js](https://itnext.io/realtime-javascript-face-tracking-and-face-recognition-using-face-api-js-mtcnn-face-detector-d924dd8b5740)**
+* **[Detecção facial e reconhecimento de emoções em tempo real pela webcam — vídeo](https://youtu.be/CVClHLwv-4I)**
+* **[Tutorial simples de reconhecimento facial com JavaScript — vídeo](https://youtu.be/AZ4PdALMqx0)**
+* **[Como usar face-api.js com Vue.js e Electron](https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166)**
+* **[Como adicionar máscaras às pessoas — Gant Laborde no Learn with Jason](https://www.learnwithjason.dev/fun-with-machine-learning-pt-2)**
 
-## Table of Contents
+## Sumário
 
-* **[Features](#features)**
-* **[Running the Examples](#running-the-examples)**
-* **[face-api.js for the Browser](#face-api.js-for-the-browser)**
-* **[face-api.js for Nodejs](#face-api.js-for-nodejs)**
-* **[Usage](#getting-started)**
-  * **[Loading the Models](#getting-started-loading-models)**
-  * **[High Level API](#high-level-api)**
-  * **[Displaying Detection Results](#getting-started-displaying-detection-results)**
-  * **[Face Detection Options](#getting-started-face-detection-options)**
-  * **[Utility Classes](#getting-started-utility-classes)**
-  * **[Other Useful Utility](#other-useful-utility)**
-* **[Available Models](#models)**
-  * **[Face Detection](#models-face-detection)**
-  * **[Face Landmark Detection](#models-face-landmark-detection)**
-  * **[Face Recognition](#models-face-recognition)**
-  * **[Face Expression Recognition](#models-face-expression-recognition)**
-  * **[Age Estimation and Gender Recognition](#models-age-and-gender-recognition)**
-* **[API Documentation](https://justadudewhohacks.github.io/face-api.js/docs/globals.html)**
+* **[Recursos](#features)**
+* **[Executando os exemplos](#running-the-examples)**
+* **[face-api.js no navegador](#face-api.js-for-the-browser)**
+* **[face-api.js no Node.js](#face-api.js-for-nodejs)**
+* **[Como usar](#getting-started)**
+  * **[Carregando os modelos](#getting-started-loading-models)**
+  * **[API de alto nível](#getting-high-level-api)**
+  * **[Exibindo os resultados da detecção](#getting-started-displaying-detection-results)**
+  * **[Opções de detecção facial](#getting-started-face-detection-options)**
+  * **[Classes utilitárias](#getting-started-utility-classes)**
+  * **[Outros recursos úteis](#getting-started-other-useful-utility)**
+* **[Modelos disponíveis](#models)**
+  * **[Detecção facial](#models-face-detection)**
+  * **[Detecção de pontos de referência faciais](#models-face-landmark-detection)**
+  * **[Reconhecimento facial](#models-face-recognition)**
+  * **[Reconhecimento de expressões faciais](#models-face-expression-recognition)**
+  * **[Estimativa de idade e classificação de gênero](#models-age-and-gender-recognition)**
+* **[Documentação da API](https://justadudewhohacks.github.io/face-api.js/docs/globals.html)**
 
-# Features
+<a name="features"></a>
 
-## Face Recognition
+# Recursos
+
+## Reconhecimento facial
 
 ![face-recognition](https://user-images.githubusercontent.com/31125521/57297377-bfcdfd80-70cf-11e9-8afa-2044cb167bff.gif)
 
-## Face Landmark Detection
+## Detecção de pontos de referência faciais
 
 ![face_landmark_detection](https://user-images.githubusercontent.com/31125521/57297731-b1ccac80-70d0-11e9-9bd7-59d77f180322.jpg)
 
-## Face Expression Recognition
+## Reconhecimento de expressões faciais
 
 ![preview_face-expression-recognition](https://user-images.githubusercontent.com/31125521/50575270-f501d080-0dfb-11e9-9676-8f419efdade4.png)
 
-## Age Estimation & Gender Recognition
+## Estimativa de idade e classificação de gênero
 
 ![age_gender_recognition](https://user-images.githubusercontent.com/31125521/57297736-b5603380-70d0-11e9-873d-8b6c7243eb64.jpg)
 
 <a name="running-the-examples"></a>
 
-# Running the Examples
+# Executando os exemplos
 
-Clone the repository:
+Clone o repositório:
 
 ``` bash
 git clone https://github.com/justadudewhohacks/face-api.js.git
 ```
 
-## Running the Browser Examples
+## Executando os exemplos no navegador
 
 ``` bash
 cd face-api.js/examples/examples-browser
@@ -75,22 +77,22 @@ npm i
 npm start
 ```
 
-Browse to http://localhost:3000/.
+Acesse http://localhost:3000/ no navegador.
 
-## Running the Nodejs Examples
+## Executando os exemplos no Node.js
 
 ``` bash
 cd face-api.js/examples/examples-nodejs
 npm i
 ```
 
-Now run one of the examples using ts-node:
+Agora, execute um dos exemplos usando o ts-node:
 
 ``` bash
 ts-node faceDetection.ts
 ```
 
-Or simply compile and run them with node:
+Ou compile e execute os exemplos com o Node.js:
 
 ``` bash
 tsc faceDetection.ts
@@ -99,11 +101,11 @@ node faceDetection.js
 
 <a name="face-api.js-for-the-browser"></a>
 
-# face-api.js for the Browser
+# face-api.js no navegador
 
-Simply include the latest script from [dist/face-api.js](https://github.com/justadudewhohacks/face-api.js/tree/master/dist).
+Basta incluir a versão mais recente do script disponível em [dist/face-api.js](https://github.com/justadudewhohacks/face-api.js/tree/master/dist).
 
-Or install it via npm:
+Ou instale a biblioteca pelo npm:
 
 ``` bash
 npm i face-api.js
@@ -111,45 +113,45 @@ npm i face-api.js
 
 <a name="face-api.js-for-nodejs"></a>
 
-# face-api.js for Nodejs
+# face-api.js no Node.js
 
-We can use the equivalent API in a nodejs environment by polyfilling some browser specifics, such as HTMLImageElement, HTMLCanvasElement and ImageData. The easiest way to do so is by installing the node-canvas package.
+É possível usar a mesma API no ambiente Node.js com implementações alternativas (*polyfills*) de recursos específicos do navegador, como HTMLImageElement, HTMLCanvasElement e ImageData. A maneira mais simples de fazer isso é instalar o pacote node-canvas.
 
-Alternatively you can simply construct your own tensors from image data and pass tensors as inputs to the API.
+Como alternativa, você pode criar seus próprios tensores a partir dos dados de imagem e fornecê-los diretamente à API. Um tensor é uma estrutura de dados numéricos usada em aprendizado de máquina.
 
-Furthermore you want to install @tensorflow/tfjs-node (not required, but highly recommended), which speeds things up drastically by compiling and binding to the native Tensorflow C++ library:
+Também é recomendável instalar @tensorflow/tfjs-node (não é obrigatório), que acelera consideravelmente o processamento ao utilizar a biblioteca nativa do TensorFlow em C++:
 
 ``` bash
 npm i face-api.js canvas @tensorflow/tfjs-node
 ```
 
-Now we simply monkey patch the environment to use the polyfills:
+Em seguida, adaptamos o ambiente do Node.js para usar esses polyfills:
 
 ``` javascript
-// import nodejs bindings to native tensorflow,
-// not required, but will speed up things drastically (python required)
+// importa a integração do Node.js com o TensorFlow nativo,
+// não é obrigatória, mas acelera bastante o processamento (requer Python)
 import '@tensorflow/tfjs-node';
 
-// implements nodejs wrappers for HTMLCanvasElement, HTMLImageElement, ImageData
+// fornece implementações para HTMLCanvasElement, HTMLImageElement e ImageData no Node.js
 import * as canvas from 'canvas';
 
 import * as faceapi from 'face-api.js';
 
-// patch nodejs environment, we need to provide an implementation of
-// HTMLCanvasElement and HTMLImageElement
+// adapta o ambiente Node.js, fornecendo implementações de
+// HTMLCanvasElement e HTMLImageElement
 const { Canvas, Image, ImageData } = canvas
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
 ```
 
 <a name="getting-started"></a>
 
-# Getting Started
+# Primeiros passos
 
 <a name="getting-started-loading-models"></a>
 
-## Loading the Models
+## Carregando os modelos
 
-All global neural network instances are exported via faceapi.nets:
+Todas as instâncias globais das redes neurais são disponibilizadas por faceapi.nets:
 
 ``` javascript
 console.log(faceapi.nets)
@@ -163,44 +165,44 @@ console.log(faceapi.nets)
 // tinyYolov2
 ```
 
-To load a model, you have to provide the corresponding manifest.json file as well as the model weight files (shards) as assets. Simply copy them to your public or assets folder. The manifest.json and shard files of a model have to be located in the same directory / accessible under the same route.
+Para carregar um modelo, disponibilize o arquivo manifest.json correspondente e os arquivos de pesos do modelo (divididos em partes, chamadas *shards*) como recursos do projeto. Basta copiá-los para a pasta pública ou de recursos. O manifest.json e os arquivos de pesos de cada modelo devem estar no mesmo diretório, acessíveis pelo mesmo caminho.
 
-Assuming the models reside in **public/models**:
+Considerando que os modelos estejam em **public/models**:
 
 ``` javascript
 await faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
-// accordingly for the other models:
+// faça o mesmo para os demais modelos:
 // await faceapi.nets.faceLandmark68Net.loadFromUri('/models')
 // await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
 // ...
 ```
 
-In a nodejs environment you can furthermore load the models directly from disk:
+No Node.js, também é possível carregar os modelos diretamente do disco:
 
 ``` javascript
 await faceapi.nets.ssdMobilenetv1.loadFromDisk('./models')
 ```
 
-You can also load the model from a tf.NamedTensorMap:
+Também é possível carregar o modelo a partir de um tf.NamedTensorMap:
 
 ``` javascript
 await faceapi.nets.ssdMobilenetv1.loadFromWeightMap(weightMap)
 ```
 
-Alternatively, you can also create own instances of the neural nets:
+Como alternativa, você pode criar suas próprias instâncias das redes neurais:
 
 ``` javascript
 const net = new faceapi.SsdMobilenetv1()
 await net.loadFromUri('/models')
 ```
 
-You can also load the weights as a Float32Array (in case you want to use the uncompressed models):
+Você também pode carregar os pesos como um Float32Array, caso queira usar modelos não compactados:
 
 ``` javascript
-// using fetch
+// usando fetch
 net.load(await faceapi.fetchNetWeights('/models/face_detection_model.weights'))
 
-// using axios
+// usando axios
 const res = await axios.get('/models/face_detection_model.weights', { responseType: 'arraybuffer' })
 const weights = new Float32Array(res.data)
 net.load(weights)
