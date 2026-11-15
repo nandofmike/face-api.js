@@ -210,9 +210,9 @@ net.load(weights)
 
 <a name="getting-high-level-api"></a>
 
-## High Level API
+## API de alto nível
 
-In the following **input** can be an HTML img, video or canvas element or the id of that element.
+Nos exemplos a seguir, **input** pode ser um elemento HTML img, video ou canvas, ou o identificador (id) desse elemento.
 
 ``` html
 <img id="myImg" src="images/example.png" />
@@ -224,138 +224,138 @@ In the following **input** can be an HTML img, video or canvas element or the id
 const input = document.getElementById('myImg')
 // const input = document.getElementById('myVideo')
 // const input = document.getElementById('myCanvas')
-// or simply:
+// ou simplesmente:
 // const input = 'myImg'
 ```
 
-### Detecting Faces
+### Detectando rostos
 
-Detect all faces in an image. Returns **Array<[FaceDetection](#interface-face-detection)>**:
+Detecta todos os rostos em uma imagem. Retorna **Array<[FaceDetection](#interface-face-detection)>**:
 
 ``` javascript
 const detections = await faceapi.detectAllFaces(input)
 ```
 
-Detect the face with the highest confidence score in an image. Returns **[FaceDetection](#interface-face-detection) | undefined**:
+Detecta o rosto com a maior pontuação de confiança em uma imagem. Retorna **[FaceDetection](#interface-face-detection) | undefined**:
 
 ``` javascript
 const detection = await faceapi.detectSingleFace(input)
 ```
 
-By default **detectAllFaces** and **detectSingleFace** utilize the SSD Mobilenet V1 Face Detector. You can specify the face detector by passing the corresponding options object:
+Por padrão, **detectAllFaces** e **detectSingleFace** utilizam o detector facial SSD MobileNet V1. Você pode escolher outro detector fornecendo o objeto de opções correspondente:
 
 ``` javascript
 const detections1 = await faceapi.detectAllFaces(input, new faceapi.SsdMobilenetv1Options())
 const detections2 = await faceapi.detectAllFaces(input, new faceapi.TinyFaceDetectorOptions())
 ```
 
-You can tune the options of each face detector as shown [here](#getting-started-face-detection-options).
+Você pode configurar as opções de cada detector facial conforme explicado [aqui](#getting-started-face-detection-options).
 
-### Detecting 68 Face Landmark Points
+### Detectando 68 pontos de referência faciais
 
-**After face detection, we can furthermore predict the facial landmarks for each detected face as follows:**
+**Após detectar os rostos, podemos identificar os pontos de referência faciais de cada um da seguinte maneira:**
 
-Detect all faces in an image + computes 68 Point Face Landmarks for each detected face. Returns **Array<[WithFaceLandmarks<WithFaceDetection<{}>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos de uma imagem e calcula os 68 pontos de referência faciais de cada um. Retorna **Array<[WithFaceLandmarks<WithFaceDetection<{}>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const detectionsWithLandmarks = await faceapi.detectAllFaces(input).withFaceLandmarks()
 ```
 
-Detect the face with the highest confidence score in an image + computes 68 Point Face Landmarks for that face. Returns **[WithFaceLandmarks<WithFaceDetection<{}>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança e calcula seus 68 pontos de referência faciais. Retorna **[WithFaceLandmarks<WithFaceDetection<{}>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const detectionWithLandmarks = await faceapi.detectSingleFace(input).withFaceLandmarks()
 ```
 
-You can also specify to use the tiny model instead of the default model:
+Também é possível usar o modelo leve (*tiny*) em vez do modelo padrão:
 
 ``` javascript
 const useTinyModel = true
 const detectionsWithLandmarks = await faceapi.detectAllFaces(input).withFaceLandmarks(useTinyModel)
 ```
 
-### Computing Face Descriptors
+### Calculando descritores faciais
 
-**After face detection and facial landmark prediction the face descriptors for each face can be computed as follows:**
+**Após a detecção dos rostos e dos pontos de referência faciais, podemos calcular os descritores de cada rosto:**
 
-Detect all faces in an image + compute 68 Point Face Landmarks for each detected face. Returns **Array<[WithFaceDescriptor<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos de uma imagem, calcula os 68 pontos de referência e gera os descritores faciais. Retorna **Array<[WithFaceDescriptor<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const results = await faceapi.detectAllFaces(input).withFaceLandmarks().withFaceDescriptors()
 ```
 
-Detect the face with the highest confidence score in an image + compute 68 Point Face Landmarks and face descriptor for that face. Returns **[WithFaceDescriptor<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança, calcula seus 68 pontos de referência e gera seu descritor facial. Retorna **[WithFaceDescriptor<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const result = await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceDescriptor()
 ```
 
-### Recognizing Face Expressions
+### Reconhecendo expressões faciais
 
-**Face expression recognition can be performed for detected faces as follows:**
+**O reconhecimento de expressões faciais pode ser realizado nos rostos detectados da seguinte maneira:**
 
-Detect all faces in an image + recognize face expressions of each face. Returns **Array<[WithFaceExpressions<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos de uma imagem e identifica as expressões faciais de cada um. Retorna **Array<[WithFaceExpressions<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const detectionsWithExpressions = await faceapi.detectAllFaces(input).withFaceLandmarks().withFaceExpressions()
 ```
 
-Detect the face with the highest confidence score in an image + recognize the face expressions for that face. Returns **[WithFaceExpressions<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança e identifica suas expressões faciais. Retorna **[WithFaceExpressions<WithFaceLandmarks<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const detectionWithExpressions = await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceExpressions()
 ```
 
-**You can also skip .withFaceLandmarks(), which will skip the face alignment step (less stable accuracy):**
+**Também é possível omitir .withFaceLandmarks(), dispensando a etapa de alinhamento facial (o que pode reduzir a precisão):**
 
-Detect all faces without face alignment + recognize face expressions of each face. Returns **Array<[WithFaceExpressions<WithFaceDetection<{}>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos sem alinhamento facial e identifica suas expressões. Retorna **Array<[WithFaceExpressions<WithFaceDetection<{}>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const detectionsWithExpressions = await faceapi.detectAllFaces(input).withFaceExpressions()
 ```
 
-Detect the face with the highest confidence score without face alignment + recognize the face expression for that face. Returns **[WithFaceExpressions<WithFaceDetection<{}>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança, sem alinhamento facial, e identifica sua expressão. Retorna **[WithFaceExpressions<WithFaceDetection<{}>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const detectionWithExpressions = await faceapi.detectSingleFace(input).withFaceExpressions()
 ```
 
-### Age Estimation and Gender Recognition
+### Estimativa de idade e classificação de gênero
 
-**Age estimation and gender recognition from detected faces can be done as follows:**
+**A estimativa de idade e a classificação de gênero a partir dos rostos detectados podem ser feitas da seguinte maneira:**
 
-Detect all faces in an image + estimate age and recognize gender of each face. Returns **Array<[WithAge<WithGender<WithFaceLandmarks<WithFaceDetection<{}>>>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos de uma imagem, estima a idade e classifica o gênero de cada rosto. Retorna **Array<[WithAge<WithGender<WithFaceLandmarks<WithFaceDetection<{}>>>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const detectionsWithAgeAndGender = await faceapi.detectAllFaces(input).withFaceLandmarks().withAgeAndGender()
 ```
 
-Detect the face with the highest confidence score in an image  + estimate age and recognize gender for that face. Returns **[WithAge<WithGender<WithFaceLandmarks<WithFaceDetection<{}>>>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança, estima sua idade e classifica seu gênero. Retorna **[WithAge<WithGender<WithFaceLandmarks<WithFaceDetection<{}>>>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const detectionWithAgeAndGender = await faceapi.detectSingleFace(input).withFaceLandmarks().withAgeAndGender()
 ```
 
-**You can also skip .withFaceLandmarks(), which will skip the face alignment step (less stable accuracy):**
+**Também é possível omitir .withFaceLandmarks(), dispensando a etapa de alinhamento facial (o que pode reduzir a precisão):**
 
-Detect all faces without face alignment + estimate age and recognize gender of each face. Returns **Array<[WithAge<WithGender<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
+Detecta todos os rostos sem alinhamento facial, estima a idade e classifica o gênero de cada um. Retorna **Array<[WithAge<WithGender<WithFaceDetection<{}>>>](#getting-started-utility-classes)>**:
 
 ``` javascript
 const detectionsWithAgeAndGender = await faceapi.detectAllFaces(input).withAgeAndGender()
 ```
 
-Detect the face with the highest confidence score without face alignment + estimate age and recognize gender for that face. Returns **[WithAge<WithGender<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
+Detecta o rosto com a maior pontuação de confiança, sem alinhamento facial, estima sua idade e classifica seu gênero. Retorna **[WithAge<WithGender<WithFaceDetection<{}>>>](#getting-started-utility-classes) | undefined**:
 
 ``` javascript
 const detectionWithAgeAndGender = await faceapi.detectSingleFace(input).withAgeAndGender()
 ```
 
-### Composition of Tasks
+### Combinação de tarefas
 
-**Tasks can be composed as follows:**
+**As tarefas podem ser combinadas da seguinte maneira:**
 
 ``` javascript
-// all faces
+// todos os rostos
 await faceapi.detectAllFaces(input)
 await faceapi.detectAllFaces(input).withFaceExpressions()
 await faceapi.detectAllFaces(input).withFaceLandmarks()
@@ -364,7 +364,7 @@ await faceapi.detectAllFaces(input).withFaceLandmarks().withFaceExpressions().wi
 await faceapi.detectAllFaces(input).withFaceLandmarks().withAgeAndGender().withFaceDescriptors()
 await faceapi.detectAllFaces(input).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors()
 
-// single face
+// um único rosto
 await faceapi.detectSingleFace(input)
 await faceapi.detectSingleFace(input).withFaceExpressions()
 await faceapi.detectSingleFace(input).withFaceLandmarks()
@@ -374,11 +374,11 @@ await faceapi.detectSingleFace(input).withFaceLandmarks().withAgeAndGender().wit
 await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptor()
 ```
 
-### Face Recognition by Matching Descriptors
+### Reconhecimento facial por comparação de descritores
 
-To perform face recognition, one can use faceapi.FaceMatcher to compare reference face descriptors to query face descriptors.
+Para realizar o reconhecimento facial, é possível usar faceapi.FaceMatcher para comparar os descritores faciais de referência com os descritores de um rosto a identificar.
 
-First, we initialize the FaceMatcher with the reference data, for example we can simply detect faces in a **referenceImage** and match the descriptors of the detected faces to faces of subsequent images:
+Primeiro, inicializamos o FaceMatcher com os dados de referência. Por exemplo, podemos detectar os rostos em uma **referenceImage** e comparar seus descritores com os rostos de outras imagens:
 
 ``` javascript
 const results = await faceapi
@@ -390,12 +390,12 @@ if (!results.length) {
   return
 }
 
-// create FaceMatcher with automatically assigned labels
-// from the detection results for the reference image
+// cria o FaceMatcher com rótulos atribuídos automaticamente
+// com base nos resultados da detecção da imagem de referência
 const faceMatcher = new faceapi.FaceMatcher(results)
 ```
 
-Now we can recognize a persons face shown in **queryImage1**:
+Agora, podemos reconhecer o rosto de uma pessoa presente em **queryImage1**:
 
 ``` javascript
 const singleResult = await faceapi
@@ -409,7 +409,7 @@ if (singleResult) {
 }
 ```
 
-Or we can recognize all faces shown in **queryImage2**:
+Ou podemos reconhecer todos os rostos presentes em **queryImage2**:
 
 ``` javascript
 const results = await faceapi
@@ -423,7 +423,7 @@ results.forEach(fd => {
 })
 ```
 
-You can also create labeled reference descriptors as follows:
+Também é possível criar descritores de referência identificados por rótulos, como neste exemplo:
 
 ``` javascript
 const labeledDescriptors = [
@@ -442,58 +442,58 @@ const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
 
 <a name="getting-started-displaying-detection-results"></a>
 
-## Displaying Detection Results
+## Exibindo os resultados da detecção
 
-Preparing the overlay canvas:
+Preparando um elemento canvas sobreposto à imagem:
 
 ``` javascript
 const displaySize = { width: input.width, height: input.height }
-// resize the overlay canvas to the input dimensions
+// ajusta o tamanho do canvas sobreposto às dimensões da entrada
 const canvas = document.getElementById('overlay')
 faceapi.matchDimensions(canvas, displaySize)
 ```
 
-face-api.js predefines some highlevel drawing functions, which you can utilize:
+O face-api.js oferece algumas funções de alto nível prontas para desenhar os resultados:
 
 ``` javascript
-/* Display detected face bounding boxes */
+/* Exibe os retângulos delimitadores dos rostos detectados */
 const detections = await faceapi.detectAllFaces(input)
-// resize the detected boxes in case your displayed image has a different size than the original
+// ajusta os retângulos se a imagem exibida tiver tamanho diferente da original
 const resizedDetections = faceapi.resizeResults(detections, displaySize)
-// draw detections into the canvas
+// desenha as detecções no canvas
 faceapi.draw.drawDetections(canvas, resizedDetections)
 
-/* Display face landmarks */
+/* Exibe os pontos de referência faciais */
 const detectionsWithLandmarks = await faceapi
   .detectAllFaces(input)
   .withFaceLandmarks()
-// resize the detected boxes and landmarks in case your displayed image has a different size than the original
+// ajusta os retângulos e pontos de referência se a imagem exibida tiver tamanho diferente da original
 const resizedResults = faceapi.resizeResults(detectionsWithLandmarks, displaySize)
-// draw detections into the canvas
+// desenha as detecções no canvas
 faceapi.draw.drawDetections(canvas, resizedResults)
-// draw the landmarks into the canvas
+// desenha os pontos de referência no canvas
 faceapi.draw.drawFaceLandmarks(canvas, resizedResults)
 
 
-/* Display face expression results */
+/* Exibe os resultados do reconhecimento de expressões faciais */
 const detectionsWithExpressions = await faceapi
   .detectAllFaces(input)
   .withFaceLandmarks()
   .withFaceExpressions()
-// resize the detected boxes and landmarks in case your displayed image has a different size than the original
+// ajusta os retângulos e pontos de referência se a imagem exibida tiver tamanho diferente da original
 const resizedResults = faceapi.resizeResults(detectionsWithExpressions, displaySize)
-// draw detections into the canvas
+// desenha as detecções no canvas
 faceapi.draw.drawDetections(canvas, resizedResults)
-// draw a textbox displaying the face expressions with minimum probability into the canvas
+// desenha no canvas uma caixa de texto com as expressões faciais acima da probabilidade mínima
 const minProbability = 0.05
 faceapi.draw.drawFaceExpressions(canvas, resizedResults, minProbability)
 ```
 
-You can also draw boxes with custom text ([DrawBox](https://github.com/justadudewhohacks/tfjs-image-recognition-base/blob/master/src/draw/DrawBox.ts)):
+Você também pode desenhar retângulos com textos personalizados ([DrawBox](https://github.com/justadudewhohacks/tfjs-image-recognition-base/blob/master/src/draw/DrawBox.ts)):
 
 ``` javascript
 const box = { x: 50, y: 50, width: 100, height: 100 }
-// see DrawBoxOptions below
+// veja as opções de DrawBox abaixo
 const drawOptions = {
   label: 'Hello I am a box!',
   lineWidth: 2
@@ -502,7 +502,7 @@ const drawBox = new faceapi.draw.DrawBox(box, drawOptions)
 drawBox.draw(document.getElementById('myCanvas'))
 ```
 
-DrawBox drawing options:
+Opções de desenho do DrawBox:
 
 ``` javascript
 export interface IDrawBoxOptions {
@@ -513,7 +513,7 @@ export interface IDrawBoxOptions {
 }
 ```
 
-Finally you can draw custom text fields ([DrawTextField](https://github.com/justadudewhohacks/tfjs-image-recognition-base/blob/master/src/draw/DrawTextField.ts)):
+Por fim, você pode desenhar campos de texto personalizados ([DrawTextField](https://github.com/justadudewhohacks/tfjs-image-recognition-base/blob/master/src/draw/DrawTextField.ts)):
 
 ``` javascript
 const text = [
@@ -521,7 +521,7 @@ const text = [
   'This is another textline!'
 ]
 const anchor = { x: 200, y: 200 }
-// see DrawTextField below
+// veja as opções de DrawTextField abaixo
 const drawOptions = {
   anchorPosition: 'TOP_LEFT',
   backgroundColor: 'rgba(0, 0, 0, 0.5)'
@@ -530,7 +530,7 @@ const drawBox = new faceapi.draw.DrawTextField(text, anchor, drawOptions)
 drawBox.draw(document.getElementById('myCanvas'))
 ```
 
-DrawTextField drawing options:
+Opções de desenho do DrawTextField:
 
 ``` javascript
 export interface IDrawTextFieldOptions {
@@ -552,22 +552,22 @@ export enum AnchorPosition {
 
 <a name="getting-started-face-detection-options"></a>
 
-## Face Detection Options
+## Opções de detecção facial
 
 ### SsdMobilenetv1Options
 
 ``` javascript
 export interface ISsdMobilenetv1Options {
-  // minimum confidence threshold
-  // default: 0.5
+  // limiar mínimo de confiança
+  // padrão: 0.5
   minConfidence?: number
 
-  // maximum number of faces to return
-  // default: 100
+  // número máximo de rostos retornados
+  // padrão: 100
   maxResults?: number
 }
 
-// example
+// exemplo
 const options = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.8 })
 ```
 
@@ -575,26 +575,26 @@ const options = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.8 })
 
 ``` javascript
 export interface ITinyFaceDetectorOptions {
-  // size at which image is processed, the smaller the faster,
-  // but less precise in detecting smaller faces, must be divisible
-  // by 32, common sizes are 128, 160, 224, 320, 416, 512, 608,
-  // for face tracking via webcam I would recommend using smaller sizes,
-  // e.g. 128, 160, for detecting smaller faces use larger sizes, e.g. 512, 608
-  // default: 416
+  // tamanho usado para processar a imagem: quanto menor, mais rápido,
+  // porém menos preciso para detectar rostos pequenos; deve ser divisível
+  // por 32. Tamanhos comuns: 128, 160, 224, 320, 416, 512, 608.
+  // para rastreamento facial pela webcam, recomendo tamanhos menores,
+  // como 128 ou 160; para detectar rostos menores, use 512 ou 608
+  // padrão: 416
   inputSize?: number
 
-  // minimum confidence threshold
-  // default: 0.5
+  // limiar mínimo de confiança
+  // padrão: 0.5
   scoreThreshold?: number
 }
 
-// example
+// exemplo
 const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 320 })
 ```
 
 <a name="getting-started-utility-classes"></a>
 
-## Utility Classes
+## Classes utilitárias
 
 ### IBox
 
@@ -683,11 +683,11 @@ export enum Gender {
 
 <a name="getting-started-other-useful-utility"></a>
 
-## Other Useful Utility
+## Outros recursos úteis
 
-### Using the Low Level API
+### Usando a API de baixo nível
 
-Instead of using the high level API, you can directly use the forward methods of each neural network:
+Em vez de usar a API de alto nível, você pode chamar diretamente os métodos de inferência (*forward*) de cada rede neural:
 
 ``` javascript
 const detections1 = await faceapi.ssdMobilenetv1(input, options)
@@ -697,32 +697,32 @@ const landmarks2 = await faceapi.detectFaceLandmarksTiny(faceImage)
 const descriptor = await faceapi.computeFaceDescriptor(alignedFaceImage)
 ```
 
-### Extracting a Canvas for an Image Region
+### Extraindo uma região de imagem para um canvas
 
 ``` javascript
 const regionsToExtract = [
   new faceapi.Rect(0, 0, 100, 100)
 ]
-// actually extractFaces is meant to extract face regions from bounding boxes
-// but you can also use it to extract any other region
+// extractFaces foi criado para extrair regiões faciais a partir de retângulos delimitadores,
+// mas também pode ser usado para extrair qualquer outra região
 const canvases = await faceapi.extractFaces(input, regionsToExtract)
 ```
 
-### Euclidean Distance
+### Distância euclidiana
 
 ``` javascript
-// ment to be used for computing the euclidean distance between two face descriptors
+// calcula a distância euclidiana entre dois descritores faciais
 const dist = faceapi.euclideanDistance([0, 0], [0, 10])
 console.log(dist) // 10
 ```
 
-### Retrieve the Face Landmark Points and Contours
+### Obtendo os pontos de referência e os contornos faciais
 
 ``` javascript
 const landmarkPositions = landmarks.positions
 
-// or get the positions of individual contours,
-// only available for 68 point face ladnamrks (FaceLandmarks68)
+// ou obtém as posições de contornos específicos,
+// disponíveis apenas para o modelo de 68 pontos (FaceLandmarks68)
 const jawOutline = landmarks.getJawOutline()
 const nose = landmarks.getNose()
 const mouth = landmarks.getMouth()
@@ -732,7 +732,7 @@ const leftEyeBbrow = landmarks.getLeftEyeBrow()
 const rightEyeBrow = landmarks.getRightEyeBrow()
 ```
 
-### Fetch and Display Images from an URL
+### Buscando e exibindo imagens a partir de uma URL
 
 ``` html
 <img id="myImg" src="">
@@ -743,18 +743,18 @@ const image = await faceapi.fetchImage('/images/example.png')
 
 console.log(image instanceof HTMLImageElement) // true
 
-// displaying the fetched image content
+// exibe a imagem obtida
 const myImg = document.getElementById('myImg')
 myImg.src = image.src
 ```
 
-### Fetching JSON
+### Buscando dados JSON
 
 ``` javascript
 const json = await faceapi.fetchJson('/files/example.json')
 ```
 
-### Creating an Image Picker
+### Criando um seletor de imagens
 
 ``` html
 <img id="myImg" src="">
@@ -764,13 +764,13 @@ const json = await faceapi.fetchJson('/files/example.json')
 ``` javascript
 async function uploadImage() {
   const imgFile = document.getElementById('myFileUpload').files[0]
-  // create an HTMLImageElement from a Blob
+  // cria um HTMLImageElement a partir de um Blob
   const img = await faceapi.bufferToImage(imgFile)
   document.getElementById('myImg').src = img.src
 }
 ```
 
-### Creating a Canvas Element from an Image or Video Element
+### Criando um canvas a partir de uma imagem ou de um vídeo
 
 ``` html
 <img id="myImg" src="images/example.png" />
