@@ -607,6 +607,8 @@ export interface IBox {
 }
 ```
 
+<a name="interface-face-detection"></a>
+
 ### IFaceDetection
 
 ``` javascript
